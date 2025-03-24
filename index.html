@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Memory game</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+</head>
+<body>
+<audio id="click_sound" preload="auto">
+    <source src="./sounds/click.mp3"> </source>
+</audio>
+    <main>
+        <h1>Memory game</h1>
+        <div id="board">
+            <div class="board_row">
+                <div class="card"><div class="hidden_value"></div></div>
+                <div class="card"><div class="hidden_value"></div></div>
+                <div class="card"><div class="hidden_value"></div></div>
+                <div class="card"><div class="hidden_value"></div></div>
+            </div>
+            <div class="board_row">
+                <div class="card"><div class="hidden_value"></div></div>
+                <div class="card"><div class="hidden_value"></div></div>
+                <div class="card"><div class="hidden_value"></div></div>
+                <div class="card"><div class="hidden_value"></div></div>
+            </div>
+            <div class="board_row">
+                <div class="card"><div class="hidden_value"></div></div>
+                <div class="card"><div class="hidden_value"></div></div>
+                <div class="card"><div class="hidden_value"></div></div>
+                <div class="card"><div class="hidden_value"></div></div>
+            </div>
+        </div>
+        <div id="control_panel"></div>
+        <div id="personal_info">
+            <b>Készítette:</b>
+            <p>Gera Zdenkó</p>
+            <p>HZLNA1</p>
+        </div>
+    </main>
+<script src="script.js"></script>
+</body>
+</html>
