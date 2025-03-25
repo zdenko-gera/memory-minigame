@@ -2,6 +2,7 @@ $(document).ready(function(){
     $("#personal_info").draggable();
 
     fillTiles();
+    setTimer(180);
 
     $(".hidden_value").hide();
 
@@ -10,6 +11,7 @@ $(document).ready(function(){
     $selectedTile2 = null;
     let action = false;
     let tileCount = 12;
+    let secondsLeft = 180;
 
     $(".card").click(function() {
         if (!action) {
@@ -29,12 +31,10 @@ $(document).ready(function(){
 
                 if ($selectedTile1 === null) {
                     $selectedTile1 = $(this);
-                    console.log($selectedTile1.children(":first").text());
                     action = false;
                 } else if ($selectedTile2 === null) {
                     action = true;
                     $selectedTile2 = $(this);
-                    console.log($selectedTile2.children(":first").text());
 
                     if ($selectedTile1.children(":first").text() === $selectedTile2.children(":first").text() && !$selectedTile1.is($selectedTile2)) {
                         $selectedTile1.animate({
@@ -60,28 +60,88 @@ $(document).ready(function(){
                         action = false
                     }, 500);
                 }
+
+                if (tileCount === 0) {
+                    $("#board").addClass("well_done");
+                }
             }
         }
-
-
-        console.log(tileCount);
-
-        if (tileCount === 0) {
-            alert("Nyertél.");
-        }
     });
-});
 
-function fillTiles() {
-    const availableValues =[1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6];
+    $("#restart").click(function() {
+        restart();
+        setTimer(secondsLeft);
+    });
 
-    availableValues.sort(() => Math.random() - 0.5);
-    availableValues.sort(() => Math.random() - 0.3);
-    availableValues.sort(() => Math.random() - 0.9);
+    $("#easy").click(function() {
+        secondsLeft = 180;
+        restart();
+        setTimer(180);
+    });
 
-    const tiles = document.getElementsByClassName('hidden_value');
+    $("#medium").click(function() {
+        secondsLeft = 90;
+        restart();
+        setTimer(90);
+    });
 
-    for (let i = 0; i < 12; i++) {
-        tiles[i].innerText = availableValues[i];
+    $("#hard").click(function() {
+        secondsLeft = 45;
+        restart();
+        setTimer(45);
+    });
+
+
+
+
+    function restart() {
+        $("#board").removeClass("well_done");
+
+        const tiles = document.getElementsByClassName('card');
+
+        for (let i = 0; i < tileCount; i++) {
+            tiles[i].style.opacity = 1;
+        }
+
+        $(".card").hide(300);
+        $(".card").delay(500).show(300);
+
+        fillTiles();
+        $(".hidden_value").hide();
     }
-}
+
+    function fillTiles() {
+        const availableValues =[1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6];
+
+        availableValues.sort(() => Math.random() - 0.5);
+        availableValues.sort(() => Math.random() - 0.3);
+        availableValues.sort(() => Math.random() - 0.9);
+
+        const tiles = document.getElementsByClassName('hidden_value');
+
+        for (let i = 0; i < 12; i++) {
+            tiles[i].innerText = availableValues[i];
+        }
+    }
+
+    function setTimer(secondsLeft) {
+        /*let timerGoal = new Date().getTime() + secondsLeft * 1000;
+
+
+        var x = setInterval(function() {
+            let now = new Date().getTime();
+
+            let sub = timerGoal - now;
+
+            let minutes = ((sub % (1000 * 60 * 60)) / (1000 * 60));
+
+            $("#timer").text("Time left: " + (minutes * 60) + "s");
+
+            if (sub < 0) {
+                clearInterval(x);
+                document.getElementById("timer").innerHTML = "EXPIRED";
+            }
+        }, 1000);*/
+        $("#timer").text("Time left: " + secondsLeft + "s");
+    }
+});
